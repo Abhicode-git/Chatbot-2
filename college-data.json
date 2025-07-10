@@ -1,0 +1,71 @@
+{
+  "college": {
+    "name": "SNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering",
+    "short_name": "SNJB COE",
+    "established": 2004,
+    "location": "Neminagar, Chandwad, Nashik, Maharashtra 423101",
+    "type": "Private Engineering College",
+    "affiliation": "Savitribai Phule Pune University",
+    "approvals": ["AICTE", "Government of Maharashtra", "DTE Maharashtra"],
+    "accreditation": {
+      "NAAC": "A+",
+      "NBA": ["Computer Engineering", "Mechanical Engineering", "Civil Engineering", "E&TC", "MBA"]
+    }
+  },
+  "programs": {
+    "undergraduate": {
+      "computer_engineering": {
+        "name": "Computer Engineering",
+        "duration": "4 years",
+        "seats": 120,
+        "eligibility": "12th Science (PCM) + MHT-CET/JEE Main"
+      },
+      "mechanical_engineering": {
+        "name": "Mechanical Engineering",
+        "duration": "4 years",
+        "seats": 60,
+        "eligibility": "12th Science (PCM) + MHT-CET/JEE Main"
+      },
+      "civil_engineering": {
+        "name": "Civil Engineering",
+        "duration": "4 years",
+        "seats": 60,
+        "eligibility": "12th Science (PCM) + MHT-CET/JEE Main"
+      },
+      "electronics_telecom": {
+        "name": "Electronics & Telecommunication Engineering",
+        "duration": "4 years",
+        "seats": 60,
+        "eligibility": "12th Science (PCM) + MHT-CET/JEE Main"
+      },
+      "ai_data_science": {
+        "name": "Artificial Intelligence & Data Science",
+        "duration": "4 years",
+        "seats": 60,
+        "eligibility": "12th Science (PCM) + MHT-CET/JEE Main",
+        "established": 2020
+      }
+    },
+    "postgraduate": {
+      "mba": {
+        "name": "Master of Business Administration",
+        "duration": "2 years",
+        "seats": 60,
+        "eligibility": "Graduation + MAH-CET/CAT/CMAT",
+        "established": 2010
+      },
+      "mtech_computer": {
+        "name": "M.Tech Computer Engineering",
+        "duration": "2 years",
+        "seats": 18,
+        "eligibility": "B.E./B.Tech + GATE"
+      }
+    }
+  },
+  "contact": {
+    "address": "Neminagar, Chandwad, Nashik District, Maharashtra 423101",
+    "phone": "+91-2556-253750",
+    "email": "principalcoe@snjb.org",
+    "website": "https://www.snjb.org/engineering/Home"
+  }
+}

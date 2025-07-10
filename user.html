@@ -1,0 +1,1234 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNJB COE - Smart AI Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+      --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.5);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 60px; height: 60px; top: 60%; left: 80%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 40px; height: 40px; top: 80%; left: 20%; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 100px; height: 100px; top: 10%; left: 70%; animation-delay: 1s; }
+    .particle:nth-child(5) { width: 50px; height: 50px; top: 70%; left: 60%; animation-delay: 3s; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+    }
+    
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .chat-container {
+      height: 100vh;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .chat-header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1.5rem 2rem;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .chat-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+    }
+    
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--primary-gradient);
+      border-radius: 4px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-gradient);
+    }
+    
+    .chat-input-area {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(20px);
+      position: relative;
+    }
+    
+    .chat-input-area::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+    
+    .message {
+      max-width: 75%;
+      padding: 1.5rem 2rem;
+      border-radius: 25px;
+      animation: slideInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      word-wrap: break-word;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-message {
+      background: var(--primary-gradient);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .user-message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    
+    .bot-message {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+      color: #2d3748;
+      align-self: flex-start;
+      border-bottom-left-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid transparent;
+      border-image: var(--primary-gradient) 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bot-message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary-gradient);
+    }
+    
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border-radius: 25px;
+      align-self: flex-start;
+      max-width: 120px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .typing-indicator::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--success-gradient);
+    }
+    
+    .typing-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success-gradient);
+      animation: typing 1.4s infinite ease-in-out;
+      box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+    }
+    
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    .typing-dot:nth-child(3) { animation-delay: 0s; }
+    
+    @keyframes typing {
+      0%, 80%, 100% { 
+        transform: scale(0.8); 
+        opacity: 0.5; 
+      }
+      40% { 
+        transform: scale(1.3); 
+        opacity: 1; 
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.6);
+      }
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    .input-container {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      position: relative;
+    }
+    
+    .chat-input {
+      flex: 1;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 2px solid transparent;
+      border-radius: 30px;
+      padding: 16px 24px;
+      outline: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    
+    .chat-input:focus {
+      border-image: var(--primary-gradient) 1;
+      border-style: solid;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .chat-input::placeholder {
+      color: #64748b;
+      font-weight: 400;
+    }
+    
+    .send-button {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .send-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .send-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .send-button:hover::before {
+      opacity: 1;
+    }
+    
+    .send-button:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+    
+    .send-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    }
+    
+    .quick-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .suggestion-chip {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      color: #667eea;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .suggestion-chip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .suggestion-chip:hover {
+      background: var(--primary-gradient);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      border-color: transparent;
+    }
+    
+    .suggestion-chip:hover::before {
+      left: 100%;
+    }
+    
+    .ai-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success-gradient);
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+    }
+    
+    @keyframes pulse {
+      0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+      }
+      50% { 
+        opacity: 0.7; 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.8);
+      }
+    }
+    
+    .message-time {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 10px;
+      font-weight: 400;
+    }
+    
+    .bot-avatar, .user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bot-avatar {
+      background: var(--success-gradient);
+      margin-right: 16px;
+    }
+    
+    .user-avatar {
+      background: var(--secondary-gradient);
+      margin-left: 16px;
+    }
+    
+    .bot-avatar::before, .user-avatar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    }
+    
+    .message-with-avatar {
+      display: flex;
+      align-items: flex-end;
+      max-width: 85%;
+      animation: slideInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .user-message-with-avatar {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    
+    .bot-message-with-avatar {
+      align-self: flex-start;
+    }
+    
+    .header-title {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      font-size: 24px;
+    }
+    
+    .header-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    }
+    
+    .clear-button {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+      color: #ef4444;
+      border: 2px solid rgba(239, 68, 68, 0.2);
+      border-radius: 12px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .clear-button:hover {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+    }
+    
+    /* Enhanced message formatting */
+    .bot-message strong {
+      color: #667eea !important;
+      font-weight: 700;
+    }
+    
+    .bot-message em {
+      color: #764ba2;
+      font-style: italic;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .chat-container {
+        margin: 0;
+        border-radius: 0;
+      }
+      
+      .chat-header, .chat-input-area {
+        padding: 1rem 1.5rem;
+      }
+      
+      .chat-messages {
+        padding: 1rem;
+        gap: 1rem;
+      }
+      
+      .message {
+        max-width: 85%;
+        padding: 1rem 1.5rem;
+      }
+      
+      .header-title {
+        font-size: 20px;
+      }
+      
+      .header-icon {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .bot-avatar, .user-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+      }
+      
+      .send-button {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .suggestion-chip {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .chat-header, .chat-input-area {
+        padding: 1rem;
+      }
+      
+      .message {
+        max-width: 90%;
+        padding: 1rem;
+      }
+      
+      .header-title {
+        font-size: 18px;
+      }
+      
+      .quick-suggestions {
+        gap: 0.5rem;
+      }
+      
+      .suggestion-chip {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Animated Background Particles -->
+<div class="bg-particles">
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+</div>
+
+<div class="chat-container glass">
+  <!-- Enhanced Chat Header -->
+  <div class="chat-header">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="header-icon">
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="header-title">SNJB COE AI Assistant</h1>
+          <div class="ai-status">
+            <div class="status-dot"></div>
+            <span>Online & Ready to Help</span>
+          </div>
+        </div>
+      </div>
+      <button onclick="clearChat()" class="clear-button" title="Clear Chat">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Enhanced Chat Messages -->
+  <div class="chat-messages" id="chatMessages">
+    <!-- Messages will be added here -->
+  </div>
+
+  <!-- Enhanced Typing Indicator -->
+  <div id="typingIndicator" class="typing-indicator" style="display: none;">
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+    <div class="typing-dot"></div>
+  </div>
+
+  <!-- Enhanced Chat Input Area -->
+  <div class="chat-input-area">
+    <!-- Enhanced Quick Suggestions -->
+    <div class="quick-suggestions" id="quickSuggestions">
+      <!-- Suggestions will be added here -->
+    </div>
+    
+    <!-- Enhanced Input Container -->
+    <div class="input-container">
+      <input 
+        type="text" 
+        id="chatInput" 
+        class="chat-input" 
+        placeholder="Ask me anything about SNJB College of Engineering..."
+        onkeypress="handleKeyPress(event)"
+        autocomplete="off"
+      />
+      <button id="sendButton" class="send-button" onclick="sendMessage()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// AI Bot Configuration
+let collegeData = {};
+let chatHistory = [];
+let isTyping = false;
+let conversationContext = [];
+
+// Initialize the bot
+async function initializeBot() {
+  try {
+    const response = await fetch('college-data.json');
+    collegeData = await response.json();
+    
+    // Create quick suggestions
+    createQuickSuggestions();
+    
+    // Show welcome message
+    setTimeout(() => {
+      addBotMessage("Hello! 👋 I'm your AI assistant for SNJB College of Engineering. I can help you with admissions, courses, placements, facilities, and much more!\n\nWhat would you like to know?");
+    }, 500);
+    
+  } catch (error) {
+    console.error('Error loading college data:', error);
+    addBotMessage("Sorry, I'm having trouble loading the college information. Please refresh the page and try again.");
+  }
+}
+
+// Create quick suggestion chips
+function createQuickSuggestions() {
+  const container = document.getElementById('quickSuggestions');
+  const suggestions = [
+    "Tell me about admissions",
+    "What courses are available?",
+    "Placement statistics",
+    "Campus facilities",
+    "Fee structure",
+    "How to contact?"
+  ];
+  
+  suggestions.forEach(suggestion => {
+    const chip = document.createElement('button');
+    chip.className = 'suggestion-chip';
+    chip.textContent = suggestion;
+    chip.onclick = () => handleSuggestionClick(suggestion);
+    container.appendChild(chip);
+  });
+}
+
+// Handle suggestion clicks
+function handleSuggestionClick(suggestion) {
+  if (isTyping) return;
+  
+  document.getElementById('chatInput').value = suggestion;
+  sendMessage();
+}
+
+// Handle key press
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+}
+
+// Send message
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim();
+  
+  if (!message || isTyping) return;
+  
+  // Add user message
+  addUserMessage(message);
+  input.value = '';
+  
+  // Add to conversation context
+  conversationContext.push({ role: 'user', content: message });
+  
+  // Process AI response
+  processAIResponse(message);
+}
+
+// Add user message
+function addUserMessage(message) {
+  const messagesContainer = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message-with-avatar user-message-with-avatar';
+  
+  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+  messageDiv.innerHTML = `
+    <div class="user-avatar">U</div>
+    <div class="message user-message">
+      <div>${message}</div>
+      <div class="message-time">${timestamp}</div>
+    </div>
+  `;
+  
+  messagesContainer.appendChild(messageDiv);
+  scrollToBottom();
+}
+
+// Add bot message
+function addBotMessage(message) {
+  const messagesContainer = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message-with-avatar bot-message-with-avatar';
+  
+  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+  messageDiv.innerHTML = `
+    <div class="bot-avatar">AI</div>
+    <div class="message bot-message">
+      <div>${formatBotMessage(message)}</div>
+      <div class="message-time">${timestamp}</div>
+    </div>
+  `;
+  
+  messagesContainer.appendChild(messageDiv);
+  scrollToBottom();
+}
+
+// Format bot message
+function formatBotMessage(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color: #667eea;">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>')
+    .replace(/•/g, '<span style="color: #667eea;">•</span>');
+}
+
+// Process AI response
+function processAIResponse(userMessage) {
+  showTypingIndicator();
+  
+  // Simulate AI processing time
+  setTimeout(() => {
+    const response = generateIntelligentResponse(userMessage);
+    hideTypingIndicator();
+    addBotMessage(response);
+    
+    // Add to conversation context
+    conversationContext.push({ role: 'assistant', content: response });
+    
+    // Keep context manageable
+    if (conversationContext.length > 10) {
+      conversationContext = conversationContext.slice(-8);
+    }
+    
+    // Add to chat history
+    chatHistory.push({
+      user: userMessage,
+      bot: response,
+      timestamp: new Date()
+    });
+  }, 1000 + Math.random() * 1500);
+}
+
+// Generate intelligent response
+function generateIntelligentResponse(query) {
+  const lowerQuery = query.toLowerCase();
+  
+  // Context-aware responses
+  const lastBotMessage = conversationContext.length > 1 ? 
+    conversationContext[conversationContext.length - 2]?.content : '';
+  
+  // Greeting responses
+  if (isGreeting(lowerQuery)) {
+    return getGreetingResponse(lowerQuery);
+  }
+  
+  // Specific topic responses
+  if (lowerQuery.includes('admission') || lowerQuery.includes('apply')) {
+    return getAdmissionInfo();
+  }
+  
+  if (lowerQuery.includes('course') || lowerQuery.includes('program') || lowerQuery.includes('branch')) {
+    return getCourseInfo();
+  }
+  
+  if (lowerQuery.includes('placement') || lowerQuery.includes('job') || lowerQuery.includes('career')) {
+    return getPlacementInfo();
+  }
+  
+  if (lowerQuery.includes('fee') || lowerQuery.includes('cost') || lowerQuery.includes('expense')) {
+    return getFeeInfo();
+  }
+  
+  if (lowerQuery.includes('facility') || lowerQuery.includes('infrastructure') || lowerQuery.includes('campus')) {
+    return getFacilityInfo();
+  }
+  
+  if (lowerQuery.includes('hostel') || lowerQuery.includes('accommodation')) {
+    return getHostelInfo();
+  }
+  
+  if (lowerQuery.includes('contact') || lowerQuery.includes('phone') || lowerQuery.includes('email')) {
+    return getContactInfo();
+  }
+  
+  if (lowerQuery.includes('location') || lowerQuery.includes('address') || lowerQuery.includes('reach')) {
+    return getLocationInfo();
+  }
+  
+  // Follow-up questions
+  if (lowerQuery.includes('more') || lowerQuery.includes('detail') || lowerQuery.includes('tell me more')) {
+    return getMoreDetails(lastBotMessage);
+  }
+  
+  // Default intelligent response
+  return getDefaultResponse(query);
+}
+
+// Helper functions for responses
+function isGreeting(query) {
+  const greetings = ['hello', 'hi', 'hey', 'good morning', 'good evening', 'namaste'];
+  return greetings.some(greeting => query.includes(greeting));
+}
+
+function getGreetingResponse(query) {
+  const responses = [
+    "Hello! 😊 Welcome to SNJB College of Engineering. I'm here to help you with any questions about our college.",
+    "Hi there! 👋 I'm your AI assistant for SNJB COE. What would you like to know?",
+    "Hey! 🙋‍♂️ Ready to explore SNJB College of Engineering? Ask me anything!"
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+}
+
+function getAdmissionInfo() {
+  return `🎓 **Admission Information for SNJB COE:**
+
+**Eligibility:**
+• For Engineering: 12th Science (PCM) + MHT-CET/JEE Main
+• For MBA: Graduation + MAH-CET/CAT/CMAT
+• For Lateral Entry: Diploma in Engineering (45% marks)
+
+**Process:**
+• Online application through DTE Maharashtra CAP
+• Document verification
+• Seat allotment based on merit
+
+**Important Dates:**
+• Applications usually start in June
+• Counseling in July-August
+
+**Documents Required:**
+• 12th/Diploma marksheets
+• Entrance exam scorecard
+• Caste certificate (if applicable)
+• Domicile certificate
+
+Would you like specific information about any particular course?`;
+}
+
+function getCourseInfo() {
+  return `📚 **Programs Offered at SNJB COE:**
+
+**Undergraduate (B.E.) - 4 Years:**
+• Computer Engineering (120 seats)
+• Mechanical Engineering (60 seats)
+• Civil Engineering (60 seats)
+• Electronics & Telecommunication (60 seats)
+• Artificial Intelligence & Data Science (60 seats)
+
+**Postgraduate:**
+• MBA (60 seats) - 2 Years
+• M.Tech Computer Engineering (18 seats) - 2 Years
+
+**Key Features:**
+• AICTE approved programs
+• Industry-relevant curriculum
+• Practical learning approach
+• Strong placement support
+
+Which specific program would you like to know more about?`;
+}
+
+function getPlacementInfo() {
+  return `💼 **Placement Statistics - SNJB COE:**
+
+**Recent Performance:**
+• Placement Rate: 85%+
+• Highest Package: ₹12 LPA
+• Average Package: ₹3.5 LPA
+• Companies Visited: 50+
+
+**Top Recruiters:**
+• **IT Sector:** TCS, Infosys, Wipro, Cognizant, Accenture
+• **Core Companies:** L&T, Bajaj Auto, Mahindra, Tata Motors
+• **Startups:** Various emerging tech companies
+
+**Training Support:**
+• Technical interview preparation
+• Aptitude & reasoning sessions
+• Soft skills development
+• Mock interviews
+• Resume building workshops
+
+**Placement Cell Services:**
+• Industry expert sessions
+• Internship coordination
+• Career counseling
+• Alumni networking
+
+Need information about placements for a specific department?`;
+}
+
+function getFeeInfo() {
+  return `💰 **Fee Structure - SNJB COE:**
+
+**Engineering Programs (Annual):**
+• Tuition Fee: ₹85,000 - ₹95,000
+• Development Fee: ₹10,000
+• Other Fees: ₹5,000 - ₹8,000
+• **Total: ₹1,00,000 - ₹1,10,000 per year**
+
+**MBA Program:**
+• Annual Fee: ₹75,000 - ₹85,000
+
+**Additional Costs:**
+• Hostel Fee: ₹40,000 - ₹50,000/year
+• Mess Fee: ₹25,000 - ₹30,000/year
+• Transportation: ₹8,000 - ₹12,000/year
+
+**Payment Options:**
+• Semester-wise payment
+• Installment facility available
+• Education loan assistance
+
+**Scholarships Available:**
+• Government scholarships (EBC, Minority, SC/ST/OBC)
+• Merit-based scholarships
+• Need-based financial assistance
+
+Would you like information about scholarship eligibility?`;
+}
+
+function getFacilityInfo() {
+  return `🏫 **Campus Facilities - SNJB COE:**
+
+**Academic Infrastructure:**
+• Modern smart classrooms with projectors
+• Well-equipped laboratories for all departments
+• Central library with 10,000+ books
+• Digital library with e-resources
+• 500+ seater auditorium
+
+**Technology:**
+• High-speed Wi-Fi throughout campus
+• Computer labs with latest software
+• Research facilities
+• Online learning platforms
+
+**Student Amenities:**
+• Spacious canteen with quality food
+• Medical room with first aid
+• ATM facility on campus
+• Parking for students and staff
+• 24/7 security with CCTV
+
+**Recreation:**
+• Sports facilities (Cricket, Basketball, Indoor games)
+• Gym facility
+• Cultural activity spaces
+• Student common areas
+
+**Support Services:**
+• Transport buses from various locations
+• Maintenance and housekeeping
+• Power backup systems
+
+Which specific facility would you like to know more about?`;
+}
+
+function getHostelInfo() {
+  return `🏠 **Hostel Facilities - SNJB COE:**
+
+**Accommodation:**
+• Separate hostels for boys and girls
+• Well-furnished rooms (2-3 sharing)
+• Study tables and storage facilities
+• 24/7 electricity and water supply
+
+**Security & Safety:**
+• 24/7 security personnel
+• CCTV surveillance
+• Biometric entry system
+• Separate entry for girls hostel
+• Lady warden for girls hostel
+
+**Amenities:**
+• Wi-Fi connectivity in all rooms
+• Common TV room and recreation area
+• Reading room for studies
+• Laundry facilities
+• Medical first aid
+
+**Mess Facilities:**
+• Nutritious vegetarian meals
+• Hygienic food preparation
+• Varied menu throughout the week
+• Special meals during festivals
+
+**Rules & Regulations:**
+• Disciplined environment
+• Fixed in/out timings
+• Visitor policies for safety
+• Regular room inspections
+
+**Hostel Fees:**
+• Accommodation: ₹40,000-50,000/year
+• Mess: ₹25,000-30,000/year
+
+Would you like to know about the hostel admission process?`;
+}
+
+function getContactInfo() {
+  return `📞 **Contact Information - SNJB COE:**
+
+**College Address:**
+SNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering
+Neminagar, Chandwad, Nashik District
+Maharashtra - 423101, India
+
+**Phone Numbers:**
+• Main Office: +91-2556-253750
+• Admission Office: +91-2556-253751
+• Placement Cell: +91-2556-253752
+
+**Email Addresses:**
+• General Inquiries: info@snjb.org
+• Principal: principalcoe@snjb.org
+• Admissions: admissions@snjb.org
+• Placements: placements@snjb.org
+
+**Website & Portals:**
+• Official Website: https://www.snjb.org/engineering/Home
+• Student Portal: https://students.snjb.org
+• Alumni Portal: https://alumni.snjb.org
+
+**Office Hours:**
+• Monday to Friday: 9:00 AM to 5:00 PM
+• Saturday: 9:00 AM to 1:00 PM
+• Sunday: Closed
+
+**Emergency Contacts:**
+• Security: +91-2556-253799
+• Medical: +91-2556-253798
+
+Need help with a specific department contact?`;
+}
+
+function getLocationInfo() {
+  return `📍 **Location & Connectivity - SNJB COE:**
+
+**Address:**
+Neminagar, Chandwad, Nashik District
+Maharashtra - 423101, India
+
+**How to Reach:**
+
+**By Road:**
+• 65 km from Nashik city via NH-3
+• Well-connected by state transport buses
+• Private vehicle parking available
+
+**By Rail:**
+• Nearest station: Manmad Junction (24 km)
+• Major trains stop at Manmad
+• Local transport available from station
+
+**By Air:**
+• Nearest airport: Nashik (Ozar) Airport (55 km)
+• Mumbai Airport: 220 km (4-5 hours by road)
+
+**Local Transportation:**
+• College buses from various locations
+• Auto-rickshaws and taxis available
+• Good road connectivity within Chandwad
+
+**Nearby Facilities:**
+• Banks and ATMs
+• Hospitals and medical facilities
+• Markets and shopping areas
+• Restaurants and food outlets
+
+**Campus Location Benefits:**
+• Peaceful environment for studies
+• Away from city pollution
+• Safe and secure area
+• Part of larger educational campus
+
+Need directions from a specific location?`;
+}
+
+function getMoreDetails(lastMessage) {
+  return "I'd be happy to provide more specific details! Could you please tell me which particular aspect you'd like to know more about? For example:\n\n• Specific department information\n• Detailed admission process\n• Particular facilities\n• Placement for specific courses\n• Scholarship details\n• Campus life activities\n\nJust let me know what interests you most!";
+}
+
+function getDefaultResponse(query) {
+  return `I understand you're asking about "${query}". While I may not have specific information on that exact topic, I can help you with comprehensive information about SNJB College of Engineering including:\n\n🎓 **Academics:** Admissions, Courses, Departments\n🏫 **Campus:** Facilities, Infrastructure, Hostel\n💼 **Career:** Placements, Training, Companies\n💰 **Financial:** Fees, Scholarships, Payment options\n📞 **Contact:** Address, Phone, Email\n\nWhat specific aspect would you like to know about?`;
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+  isTyping = true;
+  document.getElementById('typingIndicator').style.display = 'flex';
+  document.getElementById('sendButton').disabled = true;
+  scrollToBottom();
+}
+
+// Hide typing indicator
+function hideTypingIndicator() {
+  isTyping = false;
+  document.getElementById('typingIndicator').style.display = 'none';
+  document.getElementById('sendButton').disabled = false;
+}
+
+// Scroll to bottom
+function scrollToBottom() {
+  const messagesContainer = document.getElementById('chatMessages');
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Clear chat
+function clearChat() {
+  document.getElementById('chatMessages').innerHTML = '';
+  chatHistory = [];
+  conversationContext = [];
+  
+  setTimeout(() => {
+    addBotMessage("Chat cleared! I'm ready to help you with any questions about SNJB College of Engineering. What would you like to know? 😊");
+  }, 300);
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', initializeBot);
+
+// Auto-focus on input
+document.getElementById('chatInput').focus();
+</script>
+
+</body>
+</html>

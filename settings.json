@@ -1,0 +1,141 @@
+{
+  "welcomeMessage": "Welcome to SNJB COE Assistant! I'm your comprehensive AI guide for SNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering. I can help you with detailed information about admissions, academics, campus life, placements, and much more!",
+  "greetings": {
+    "hi": "Hello! 👋 How can I assist you today about SNJB College of Engineering?",
+    "hello": "Hi there! 😊 Need any information related to SNJB COE?",
+    "hey": "Hey! Ask me anything about the college, from courses to placements.",
+    "good morning": "Good morning! 🌅 Ready to explore what SNJB COE offers?",
+    "good evening": "Good evening! 🌇 Feel free to ask about academics, clubs, or anything else.",
+    "namaste": "Namaste! 🙏 Welcome to SNJB COE. How can I help you today?"
+  },
+  "suggestedTopics": [
+    "About College",
+    "Admissions",
+    "Programs",
+    "Departments",
+    "Placements",
+    "Facilities",
+    "Infrastructure",
+    "Hostel",
+    "Location",
+    "Faculty",
+    "Fees",
+    "Scholarships",
+    "Research",
+    "Clubs",
+    "Achievements",
+    "Contact"
+  ],
+  "topicsInfo": {
+    "about": "SNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering is a prestigious institution established in 2004, located in the Jain Gurukul campus in Chandwad. The college is approved by AICTE New Delhi and Government of Maharashtra, and affiliated to Savitribai Phule Pune University (formerly University of Pune). Starting with four engineering branches, the college has grown to include MBA (2010) and Artificial Intelligence & Data Science (2020). The institution is known for its excellent infrastructure, well-equipped laboratories, and strong placement record.",
+
+    "history": "SNJB COE was established in 2004 with four core engineering branches: Mechanical Engineering, Computer Engineering, Electronics & Telecommunications Engineering, and Civil Engineering. In 2010, the college expanded by adding MBA program under its umbrella. The latest addition came in 2020 with the establishment of Artificial Intelligence and Data Science department, keeping pace with modern technological demands.",
+
+    "admissions": "Admissions at SNJB COE are conducted through the DTE Maharashtra Centralized Admission Process (CAP). For First Year Engineering (F.E.), candidates must have passed 12th Science with Physics, Chemistry, and Mathematics (PCM) group and qualify MHT-CET or JEE Main. For Direct Second Year (D.S.E./Lateral Entry), students should have completed a diploma in engineering with at least 45% marks (40% for reserved categories). The college follows Maharashtra state reservation policy. Admission portal and detailed brochure are available on the official website.",
+
+    "programs": "SNJB COE offers comprehensive programs across multiple disciplines:\n\n**Undergraduate Programs (B.E. - 4 Years):**\n• Civil Engineering (60 seats)\n• Computer Engineering (120 seats)\n• Mechanical Engineering (60 seats)\n• Electronics & Telecommunication Engineering (60 seats)\n• Artificial Intelligence & Data Science (60 seats)\n\n**Postgraduate Programs:**\n• Master of Business Administration (MBA) - 2 Years (60 seats)\n• M.Tech in Computer Engineering (18 seats)\n\n**First Year Engineering:** All students undergo a common first-year curriculum to build strong foundational knowledge in engineering fundamentals.",
+
+    "departments": "SNJB COE has well-established departments with experienced faculty and modern infrastructure:\n\n**Civil Engineering Department:**\n• Head: Dr. A. Sharma\n• Focus: Structural Engineering, Environmental Engineering, Transportation, Geotechnical Engineering\n• Labs: Concrete Testing, Soil Mechanics, Survey, CAD Lab\n\n**Computer Engineering Department:**\n• Head: Prof. B. Patil\n• Focus: Software Development, AI/ML, Data Science, Cybersecurity\n• Labs: Programming, Database, Networking, Project Lab\n\n**Mechanical Engineering Department:**\n• Head: Dr. C. Pawar\n• Focus: Manufacturing, Thermal Engineering, Design, Automation\n• Labs: Workshop, Thermal, Fluid Mechanics, CAD/CAM\n\n**Electronics & Telecommunication Department:**\n• Head: Prof. D. Jadhav\n• Focus: Communication Systems, VLSI, Embedded Systems, Signal Processing\n• Labs: Communication, Microprocessor, VLSI, Project Lab\n\n**Artificial Intelligence & Data Science Department:**\n• Head: Prof. E. More\n• Focus: Machine Learning, Big Data, IoT, Data Analytics\n• Labs: AI/ML Lab, Data Science Lab, IoT Lab\n\n**MBA Department:**\n• Head: Dr. F. Desai\n• Specializations: Marketing, Finance, HR, Operations\n• Focus: Leadership Development, Entrepreneurship",
+
+    "placements": "SNJB COE has a dedicated Training & Placement Cell that ensures excellent career opportunities for students:\n\n**Placement Statistics:**\n• Highest Package: ₹12 LPA\n• Average Package: ₹3.5 LPA\n• Placement Rate: 85%+\n\n**Top Recruiters:**\n• IT Companies: TCS, Infosys, Wipro, Cognizant, Accenture, Capgemini\n• Core Companies: L&T, Bajaj Auto, Mahindra, Tata Motors\n• Startups: Various emerging tech companies\n• Government: MPSC, UPSC selections\n\n**Training Programs:**\n• Aptitude and Reasoning sessions\n• Technical interview preparation\n• Soft skills development\n• Mock interviews and group discussions\n• Resume building workshops\n• Industry expert sessions\n\n**Internship Support:**\n• Summer internship programs\n• Industry project collaborations\n• Research internships",
+
+    "facilities": "SNJB COE boasts state-of-the-art infrastructure and comprehensive facilities:\n\n**Academic Infrastructure:**\n• Technologically advanced auditorium (500+ seating capacity)\n• Spacious, well-ventilated classrooms with modern teaching aids\n• Smart classrooms with projectors and audio-visual systems\n• Well-equipped laboratories for each department\n• Separate departmental libraries with technical books and journals\n\n**Central Library:**\n• Thousands of volumes covering all engineering disciplines\n• Digital library with e-books and online journals\n• Reading halls and reference sections\n• Internet facility for research\n\n**Other Facilities:**\n• High-speed Wi-Fi campus\n• Computer center with latest hardware and software\n• Canteen with hygienic food\n• Medical room with first aid facilities\n• ATM facility on campus\n• Transport buses from various locations\n• Parking facility for students and staff\n• 24/7 security with CCTV surveillance",
+
+    "infrastructure": "The college features fascinating infrastructure designed for optimal learning:\n\n**Buildings & Spaces:**\n• Modern academic blocks with earthquake-resistant construction\n• Well-planned campus layout with green spaces\n• Separate blocks for different departments\n• Administrative building with all offices\n• Workshop and laboratory blocks\n\n**Technical Infrastructure:**\n• Advanced laboratory equipment for all departments\n• High-speed internet connectivity throughout campus\n• Power backup systems\n• Water treatment and supply systems\n• Waste management systems\n\n**Support Infrastructure:**\n• Dedicated technical staff for each department\n• Maintenance team for infrastructure upkeep\n• Security systems and personnel\n• Transportation facility",
+
+    "hostel": "SNJB COE provides comfortable accommodation facilities:\n\n**Boys Hostel:**\n• Separate hostel building with modern amenities\n• 24/7 security with biometric entry system\n• CCTV surveillance for safety\n• Wi-Fi connectivity in all rooms\n• Common areas for recreation and study\n\n**Girls Hostel:**\n• Dedicated girls hostel with enhanced security\n• Separate entry and exit points\n• Lady warden supervision\n• Safe and secure environment\n\n**Hostel Facilities:**\n• Mess facility serving nutritious vegetarian meals\n• Medical facilities and first aid\n• Laundry services\n• Recreation room with TV and indoor games\n• Study rooms for group discussions\n• Gym facility access\n• Regular maintenance and housekeeping\n\n**Hostel Rules:**\n• Disciplined environment promoting academic focus\n• Regular attendance and conduct monitoring\n• Visitor policies for safety\n• Curfew timings for security",
+
+    "location": "SNJB COE is strategically located in Chandwad, offering excellent connectivity:\n\n**Address:**\nNeminagar, Chandwad, Nashik District\nMaharashtra - 423101, India\n\n**Connectivity:**\n• **By Road:** 65 km from Nashik city via NH-3 (National Highway 3)\n• **By Rail:** 24 km from Manmad Railway Station (major junction)\n• **By Air:** 55 km from Nashik (Ozar) Airport\n\n**Local Advantages:**\n• Chandwad is a well-developed taluka with all essential amenities\n• Peaceful environment conducive to studies\n• Good local transportation facility\n• Access to banks, hospitals, and markets\n• Safe and secure location\n\n**Campus Location Benefits:**\n• Away from city pollution and distractions\n• Serene environment for focused learning\n• Part of larger Jain Gurukul campus\n• Easy access to other educational institutions",
+
+    "faculty": "SNJB COE has a team of highly qualified and experienced faculty members:\n\n**Faculty Qualifications:**\n• Ph.D. holders: 40%+\n• M.Tech/M.E. qualified: 95%+\n• Industry experience: Many faculty members\n• Research publications in reputed journals\n\n**Faculty Development:**\n• Regular training programs and workshops\n• Conference participation and paper presentations\n• Industry collaboration projects\n• Continuous learning and skill upgradation\n\n**Teaching Excellence:**\n• Student-centric teaching methodologies\n• Use of modern teaching aids and technology\n• Practical and application-based learning\n• Mentorship and guidance programs\n\n**Research Activities:**\n• Active research in emerging technologies\n• Collaboration with industries and other institutions\n• Student research project guidance\n• Publication in national and international journals",
+
+    "fees": "SNJB COE offers quality education at affordable fee structure:\n\n**Engineering Programs (Annual Fees):**\n• Tuition Fee: ₹85,000 - ₹95,000 per year\n• Development Fee: ₹10,000 per year\n• Other Fees: ₹5,000 - ₹8,000 per year\n• Total Annual Fee: Approximately ₹1,00,000 - ₹1,10,000\n\n**MBA Program:**\n• Annual Fee: ₹75,000 - ₹85,000\n\n**Additional Costs:**\n• Hostel Fee: ₹40,000 - ₹50,000 per year\n• Mess Fee: ₹25,000 - ₹30,000 per year\n• Transportation: ₹8,000 - ₹12,000 per year\n\n**Payment Options:**\n• Semester-wise payment facility\n• Education loan assistance\n• Installment options available\n\n*Note: Fees are subject to change. Please check official website for current fee structure.*",
+
+    "scholarships": "SNJB COE supports deserving students through various scholarship programs:\n\n**Government Scholarships:**\n• EBC (Economically Backward Class) Scholarship\n• Minority Scholarship for eligible students\n• SC/ST/OBC scholarships as per government norms\n• Post-Matric Scholarship schemes\n\n**Merit-Based Scholarships:**\n• Top performers in entrance exams\n• Academic excellence scholarships\n• Sports achievement scholarships\n• Cultural activity scholarships\n\n**Need-Based Support:**\n• Financial assistance for economically weaker students\n• Fee concessions for deserving cases\n• Book bank facility\n• Free coaching for competitive exams\n\n**External Scholarships:**\n• Guidance for national scholarship programs\n• Corporate scholarship opportunities\n• Foundation and trust scholarships\n\n**Application Process:**\n• Online application through college portal\n• Document verification process\n• Merit and need assessment\n• Regular renewal based on performance",
+
+    "research": "SNJB COE promotes research and innovation across all departments:\n\n**Research Areas:**\n• Artificial Intelligence and Machine Learning\n• Renewable Energy Systems\n• Environmental Engineering\n• Advanced Manufacturing Technologies\n• Communication and Signal Processing\n• Structural Engineering and Materials\n• Data Science and Analytics\n\n**Research Facilities:**\n• Well-equipped research laboratories\n• Access to research databases and journals\n• Collaboration with industries and research institutions\n• Funding support for research projects\n\n**Student Research:**\n• Final year project guidance\n• Research paper publication opportunities\n• Participation in national and international conferences\n• Innovation and startup support\n\n**Faculty Research:**\n• Active research projects in various domains\n• Publications in reputed journals\n• Patent filing and intellectual property development\n• Collaboration with other institutions",
+
+    "vision": "**Vision:**\nTo transform young aspirant learners into creative professionals who contribute to societal development through quality technical education, ethical values, leadership skills, and innovation-driven thinking.\n\n**Mission:**\nTo provide quality technical education with emphasis on:\n• Practical learning and hands-on experience\n• Research and innovation in emerging technologies\n• Industry-academia collaboration\n• Holistic personality development\n• Ethical and moral values\n• Global competitiveness and employability\n\n**Goals and Objectives:**\n• Excellence in technical education and research\n• Development of competent engineers and managers\n• Promotion of innovation and entrepreneurship\n• Service to society through knowledge and skills\n• Sustainable development and environmental consciousness\n• Character building and leadership development",
+
+    "clubs": "SNJB COE supports vibrant student life through various clubs and activities:\n\n**Technical Clubs:**\n• **Coding Club:** Programming competitions, hackathons, coding challenges\n• **Robotics Club:** Robot design, competitions, automation projects\n• **Innovation Cell:** Start-up mentoring, idea development, entrepreneurship\n• **IEEE Student Branch:** Technical paper presentations, workshops\n• **ISTE Chapter:** Technical activities and knowledge sharing\n\n**Cultural Clubs:**\n• **Cultural Committee:** Annual fest organization, cultural events\n• **Music and Dance Club:** Performances, competitions, training\n• **Drama Club:** Theatre, street plays, social awareness programs\n• **Literary Club:** Debates, essay competitions, creative writing\n\n**Social Service:**\n• **NSS Unit:** Community service, social awareness campaigns\n• **Sustainability Cell:** Environmental conservation, green initiatives\n• **Women Empowerment Forum:** Gender equality, women's safety\n\n**Sports Activities:**\n• Cricket, Football, Basketball teams\n• Indoor games: Table Tennis, Chess, Carrom\n• Annual sports meet and inter-college competitions\n• Fitness and wellness programs",
+
+    "achievements": "SNJB COE has earned recognition through various achievements:\n\n**Institutional Accreditations:**\n• NAAC A+ Accreditation (2023)\n• NBA Accreditation for multiple departments\n• AICTE Approval and Government Recognition\n• University Affiliation with SPPU\n\n**Awards and Recognition:**\n• Best Rural Engineering College Award\n• AICTE-CII Innovation Award\n• Excellence in Placements Recognition\n• Outstanding Contribution to Technical Education\n\n**Student Achievements:**\n• National level hackathon winners\n• State and national level sports achievements\n• Research paper publications by students\n• Successful startup ventures by alumni\n• High success rate in competitive exams\n\n**Faculty Achievements:**\n• Research publications in international journals\n• Patents filed and granted\n• Awards for teaching excellence\n• Recognition in professional bodies\n\n**Infrastructure Recognition:**\n• Modern laboratory facilities\n• Technology-enabled classrooms\n• Green campus initiatives\n• Safety and security measures",
+
+    "contact": "**Contact Information:**\n\n**College Address:**\nSNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering\nNeminagar, Chandwad, Nashik District\nMaharashtra - 423101, India\n\n**Phone Numbers:**\n• Main Office: +91-2556-253750\n• Admission Office: +91-2556-253751\n• Placement Cell: +91-2556-253752\n\n**Email Addresses:**\n• General Inquiries: info@snjb.org\n• Principal: principalcoe@snjb.org\n• Admissions: admissions@snjb.org\n• Placements: placements@snjb.org\n\n**Website:**\n• Official Website: https://www.snjb.org/engineering/Home\n• Student Portal: https://students.snjb.org\n• Alumni Portal: https://alumni.snjb.org\n\n**Office Hours:**\n• Monday to Friday: 9:00 AM to 5:00 PM\n• Saturday: 9:00 AM to 1:00 PM\n• Sunday: Closed\n\n**Emergency Contact:**\n• Security: +91-2556-253799\n• Medical Emergency: +91-2556-253798"
+  },
+  "collegeDetails": {
+    "name": "SNJB's Late Sau Kantabai Bhavarlalji Jain College of Engineering",
+    "short_name": "SNJB COE",
+    "established": 2004,
+    "type": "Private, Jain-minority, Non-autonomous",
+    "campus_type": "Rural",
+    "university": "Savitribai Phule Pune University (SPPU)",
+    "approvals": ["AICTE", "Government of Maharashtra", "DTE Maharashtra"],
+    "accreditation": {
+      "NAAC": "A+",
+      "NBA": ["Civil Engineering", "Computer Engineering", "Mechanical Engineering", "E&TC Engineering", "MBA"]
+    },
+    "address": {
+      "full": "Neminagar, Chandwad, Nashik District, Maharashtra, India",
+      "postal_code": "423101",
+      "distances": {
+        "nashik": "65 km",
+        "manmad_station": "24 km",
+        "ozar_airport": "55 km"
+      }
+    },
+    "programs": {
+      "undergraduate": {
+        "civil_engineering": { "seats": 60, "duration": "4 years" },
+        "computer_engineering": { "seats": 120, "duration": "4 years" },
+        "mechanical_engineering": { "seats": 60, "duration": "4 years" },
+        "electronics_telecom": { "seats": 60, "duration": "4 years" },
+        "ai_data_science": { "seats": 60, "duration": "4 years", "established": 2020 }
+      },
+      "postgraduate": {
+        "mba": { "seats": 60, "duration": "2 years", "established": 2010 },
+        "mtech_computer": { "seats": 18, "duration": "2 years" }
+      }
+    },
+    "facilities": [
+      "Central Library with thousands of volumes",
+      "Departmental libraries for each department",
+      "Technologically advanced auditorium (500+ seats)",
+      "Well-equipped laboratories",
+      "Smart classrooms",
+      "High-speed Wi-Fi campus",
+      "Hostel facilities (Boys and Girls)",
+      "Canteen",
+      "Medical room",
+      "ATM facility",
+      "Transport buses",
+      "Sports facilities",
+      "Gym facility"
+    ]
+  },
+  "keywordMapping": {
+    "about": ["about", "college", "institution", "snjb", "history", "establishment", "founded"],
+    "admissions": ["admission", "apply", "eligibility", "entrance", "cap", "mht-cet", "jee", "cutoff", "merit"],
+    "programs": ["course", "degree", "branch", "curriculum", "syllabus", "subjects", "semester"],
+    "departments": [
+      "department",
+      "branch",
+      "faculty",
+      "hod",
+      "computer",
+      "mechanical",
+      "civil",
+      "electronics",
+      "ai",
+      "mba"
+    ],
+    "placements": ["placement", "job", "career", "company", "salary", "package", "recruitment", "interview"],
+    "facilities": ["facility", "infrastructure", "lab", "library", "classroom", "auditorium", "wifi"],
+    "hostel": ["hostel", "accommodation", "room", "mess", "food", "boarding", "residence"],
+    "location": ["location", "address", "distance", "connectivity", "transport", "nashik", "chandwad"],
+    "fees": ["fee", "cost", "expense", "tuition", "payment", "installment", "loan"],
+    "scholarships": ["scholarship", "financial", "aid", "concession", "support", "assistance"],
+    "contact": ["contact", "phone", "email", "address", "office", "inquiry"]
+  },
+  "defaultResponse": "I understand you're asking about that topic, but let me help you with the information I have about SNJB College of Engineering. You can ask me about:\n\n📚 **Academics:** Admissions, Programs, Departments, Faculty\n🏫 **Campus:** Facilities, Infrastructure, Hostel, Location\n💼 **Career:** Placements, Training, Companies, Packages\n🎯 **Student Life:** Clubs, Activities, Sports, Events\n📞 **General:** Contact, Fees, Scholarships, Achievements\n\nWhat specific information would you like to know?"
+}

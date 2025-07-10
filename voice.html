@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo Mind - Voice Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #4b4b4b;
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+    
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+    }
+    
+    .voice-button {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .voice-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 45px rgba(102, 126, 234, 0.5);
+    }
+    
+    .voice-button.recording {
+      animation: pulse 1.5s infinite;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .voice-status {
+      text-align: center;
+      margin-top: 2rem;
+      font-weight: 600;
+      font-size: 18px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .transcript {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1.6;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .response-container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .response-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #4c51bf;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .response-text {
+      color: #2d3748;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #4c51bf;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+    
+    @media (max-width: 768px) {
+      .voice-button {
+        width: 120px;
+        height: 120px;
+        font-size: 2rem;
+      }
+      
+      .voice-status {
+        font-size: 16px;
+      }
+      
+      .transcript, .response-container {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Enhanced Navbar -->
+  <nav class="glass-strong flex justify-between items-center px-4 sm:px-6 py-4 fixed top-0 left-0 right-0 z-50 shadow-lg">
+    <a href="index.html" class="back-button">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="hidden sm:inline">Back to Chat</span>
+    </a>
+    
+    <div class="navbar-brand flex items-center gap-2">
+      <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 1v11m6 2v3a6 6 0 01-12 0v-3m6-14a4 4 0 00-4 4v7a4 4 0 108 0v-7a4 4 0 00-4-4z"/>
+      </svg>
+      Voice Assistant
+    </div>
+    
+    <div class="w-20 sm:w-32"></div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 px-4 sm:px-6 pt-24 pb-6 max-w-3xl mx-auto w-full">
+    <div class="glass rounded-3xl p-6 sm:p-8 mb-8 text-center">
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">Voice Assistant</h1>
+      <p class="text-lg text-white/90 mb-8 leading-relaxed">
+        Speak naturally and I'll help you with information about SNJB College of Engineering
+      </p>
+      
+      <div class="flex justify-center mb-8">
+        <button id="voiceButton" class="voice-button" onclick="toggleRecording()">
+          <svg id="micIcon" class="w-16 h-16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 1v11m6 2v3a6 6 0 01-12 0v-3m6-14a4 4 0 00-4 4v7a4 4 0 108 0v-7a4 4 0 00-4-4z"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div id="voiceStatus" class="voice-status">
+        Click the microphone to start speaking
+      </div>
+    </div>
+
+    <div class="transcript">
+      <div id="transcript" class="text-gray-600 text-center">
+        Your speech will appear here...
+      </div>
+    </div>
+
+    <div id="response" class="response-container" style="display: none;">
+      <h3 class="response-title">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>
+        AI Response:
+      </h3>
+      <div id="responseText" class="response-text"></div>
+    </div>
+  </main>
+
+  <script>
+    let isRecording = false;
+    let recognition;
+    let jsonData = {};
+
+    // Load college data
+    async function loadCollegeData() {
+      try {
+        const response = await fetch('settings.json');
+        jsonData = await response.json();
+      } catch (error) {
+        console.error("Error loading settings:", error);
+        document.getElementById('voiceStatus').textContent = 'Error loading college data. Please refresh the page.';
+      }
+    }
+
+    // Initialize speech recognition
+    function initializeSpeechRecognition() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = function() {
+          document.getElementById('voiceStatus').textContent = 'Listening... Speak now!';
+          document.getElementById('transcript').textContent = 'Listening...';
+        };
+
+        recognition.onresult = function(event) {
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          document.getElementById('transcript').textContent = transcript;
+          
+          if (event.results[event.results.length - 1].isFinal) {
+            processVoiceInput(transcript);
+          }
+        };
+
+        recognition.onerror = function(event) {
+          console.error('Speech recognition error:', event.error);
+          document.getElementById('voiceStatus').textContent = 'Error occurred. Please try again.';
+          stopRecording();
+        };
+
+        recognition.onend = function() {
+          stopRecording();
+        };
+      } else {
+        document.getElementById('voiceStatus').textContent = 'Speech recognition not supported in this browser.';
+        document.getElementById('voiceButton').disabled = true;
+      }
+    }
+
+    function toggleRecording() {
+      if (isRecording) {
+        recognition.stop();
+      } else {
+        startRecording();
+      }
+    }
+
+    function startRecording() {
+      isRecording = true;
+      document.getElementById('voiceButton').classList.add('recording');
+      document.getElementById('voiceStatus').textContent = 'Listening...';
+      document.getElementById('response').style.display = 'none';
+      recognition.start();
+    }
+
+    function stopRecording() {
+      isRecording = false;
+      document.getElementById('voiceButton').classList.remove('recording');
+      document.getElementById('voiceStatus').textContent = 'Click the microphone to start speaking';
+    }
+
+    function processVoiceInput(transcript) {
+      document.getElementById('voiceStatus').textContent = 'Processing your request...';
+      
+      // Generate AI response using the same logic as the main chat
+      setTimeout(() => {
+        const response = generateEnhancedAIResponse(transcript);
+        document.getElementById('responseText').innerHTML = formatMessage(response);
+        document.getElementById('response').style.display = 'block';
+        
+        // Speak the response
+        speakResponse(response);
+        
+        document.getElementById('voiceStatus').textContent = 'Response ready! Click to speak again.';
+      }, 1000);
+    }
+
+    function speakResponse(text) {
+      if ('speechSynthesis' in window) {
+        // Clean text for speech (remove emojis and markdown)
+        const cleanText = text
+          .replace(/[📚🎓🏢💼🏫🏠🎯👥🏆📞🤖👋😊🙋‍♂️🌅🌇☀️💡🌟🔬📈✨🤝💫🎉💬🤔💡🎯❌]/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '$1')
+          .replace(/\*(.*?)\*/g, '$1')
+          .replace(/\n/g, ' ')
+          .replace(/•/g, '')
+          .replace(/🔍|📋|💼|🎭|📜|📧/g, '');
+        
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 0.8;
+        
+        // Use a more natural voice if available
+        const voices = speechSynthesis.getVoices();
+        const preferredVoice = voices.find(voice => 
+          voice.name.includes('Google') || 
+          voice.name.includes('Microsoft') || 
+          voice.lang.includes('en-US')
+        );
+        if (preferredVoice) {
+          utterance.voice = preferredVoice;
+        }
+        
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Enhanced AI response generation (same as main chat)
+    function generateEnhancedAIResponse(query) {
+      const lowerQuery = query.toLowerCase();
+
+      // Enhanced greeting responses
+      const greetings = {
+        'hello': "Hello there! I'm excited to help you learn about SNJB College of Engineering. What would you like to know?",
+        'hi': "Hi! Welcome to SNJB COE. I'm here to assist you with any questions about our college.",
+        'hey': "Hey! Ready to explore what SNJB COE has to offer? Ask me anything!",
+        'good morning': "Good morning! Hope you're having a great day. How can I help you with SNJB COE today?",
+        'good evening': "Good evening! I'm here to help with any questions about our college.",
+        'good afternoon': "Good afternoon! What would you like to know about SNJB College of Engineering?"
+      };
+
+      // Check for greetings
+      for (const [greeting, response] of Object.entries(greetings)) {
+        if (lowerQuery.includes(greeting)) {
+          return response;
+        }
+      }
+
+      // Topic matching
+      for (const [topic, info] of Object.entries(jsonData.topicsInfo || {})) {
+        if (lowerQuery.includes(topic)) {
+          return info;
+        }
+      }
+
+      // Keyword matching
+      const keywords = {
+        'admission': 'admissions', 'course': 'programs', 'branch': 'departments',
+        'job': 'placements', 'placement': 'placements', 'infrastructure': 'facilities',
+        'library': 'facilities', 'lab': 'facilities', 'room': 'hostel',
+        'accommodation': 'hostel', 'goal': 'vision', 'mission': 'vision',
+        'club': 'clubs', 'activity': 'clubs', 'award': 'achievements',
+        'accreditation': 'achievements', 'phone': 'contact', 'email': 'contact',
+        'address': 'contact', 'location': 'contact',
+      };
+
+      for (const [keyword, topic] of Object.entries(keywords)) {
+        if (lowerQuery.includes(keyword)) {
+          return jsonData.topicsInfo?.[topic] || jsonData.defaultResponse;
+        }
+      }
+
+      return jsonData.defaultResponse || "I'm sorry, I don't have information on that topic. Please try asking about admissions, programs, facilities, or other college-related topics.";
+    }
+
+    function formatMessage(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong style="color: #4c51bf;">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>')
+        .replace(/•/g, '<span style="color: #667eea;">•</span>');
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCollegeData();
+      initializeSpeechRecognition();
+    });
+  </script>
+
+</body>
+</html>
